@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selftabs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&display=swap');
+        
+        :root {
+            --bg-main: #000000;
+            --accent-purple: #C5B5F9;
+            --accent-glow: rgba(197, 181, 249, 0.25);
+            --card-bg: rgba(32, 14, 70, 0.7);
+            --border-purple: rgba(197, 181, 249, 0.18);
+        }
+
+        body {
+            font-family: 'Iosevka Charon Mono', 'Iosevka', 'JetBrains Mono', monospace;
+            background-color: var(--bg-main);
+            color: #FFFFFF;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(197, 181, 249, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 85% 85%, rgba(140, 80, 255, 0.1) 0%, transparent 45%);
+            background-attachment: fixed;
+        }
+
+        .glass-panel {
+            background: rgba(0, 0, 0, 0.82);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-purple);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .glass-card {
+            background: rgba(38, 16, 82, 0.55);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(197, 181, 249, 0.12);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            border-color: #C5B5F9;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(197, 181, 249, 0.2);
+        }
+
+        .text-accent {
+            color: #C5B5F9;
+        }
+
+        .border-accent {
+            border-color: #C5B5F9;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #FFFFFF 0%, #C5B5F9 60%, #E8E0FF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gradient-badge {
+            background: rgba(197, 181, 249, 0.12);
+            border: 1px solid rgba(197, 181, 249, 0.3);
+            color: #C5B5F9;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(15, 5, 35, 0.6);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(197, 181, 249, 0.3);
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(197, 181, 249, 0.6);
+        }
+
+        .tab-btn {
+            border: 1px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn:hover {
+            border-color: rgba(197, 181, 249, 0.3);
+            background: rgba(197, 181, 249, 0.08);
+        }
+
+        .tab-btn.active {
+            background: #C5B5F9;
+            color: #1A0A3A;
+            font-weight: 700;
+            box-shadow: 0 4px 20px rgba(197, 181, 249, 0.35);
+        }
+
+        .pro-ring {
+            box-shadow: 0 0 0 2px #1A0A3A, 0 0 0 4px #C5B5F9;
+        }
+
+        .team-ring {
+            box-shadow: 0 0 0 2px #1A0A3A, 0 0 0 4px #E879F9;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-[#C5B5F9] selection:text-[#1A0A3A]">
+
+    <!-- TOP HEADER -->
+    <header class="sticky top-0 z-50 glass-panel border-b border-[#C5B5F9]/20 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-[#C5B5F9] text-[#1A0A3A] flex items-center justify-center font-black text-xl shadow-lg shadow-[#C5B5F9]/20">
+                    <i data-lucide="layers" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xl font-bold tracking-tight text-white">Selftabs</span>
+                        <span class="px-2 py-0.5 text-xs font-semibold rounded-full gradient-badge">selftabs.ru</span>
+                    </div>
+                    <p class="text-xs text-[#C5B5F9]/80">Умное управление вкладками & Workspace Экосистема</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <span class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-300 border border-emerald-500/30">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Версия v1.0.0
+                </span>
+                <a href="https://selftabs.ru" target="_blank" class="px-4 py-2 rounded-xl text-xs font-semibold bg-[#C5B5F9]/10 hover:bg-[#C5B5F9]/20 text-[#C5B5F9] transition border border-[#C5B5F9]/30 flex items-center gap-2">
+                    <i data-lucide="globe" class="w-4 h-4"></i> selftabs.ru
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN APP WRAPPER -->
+    <div class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+        <!-- NAVIGATION SIDEBAR -->
+        <aside class="lg:col-span-3 flex flex-col gap-2 glass-panel p-3 rounded-2xl h-fit lg:sticky lg:top-24">
+            <div class="px-3 py-2 text-xs font-bold text-[#C5B5F9]/70 uppercase tracking-wider border-b border-[#C5B5F9]/10 mb-1">
+                Разделы презентации
+            </div>
+            
+            <button onclick="switchTab('overview')" id="btn-overview" class="tab-btn active w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold transition text-left">
+                <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Обзор и Концепция
+            </button>
+            <button onclick="switchTab('tech')" id="btn-tech" class="tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold transition text-left">
+                <i data-lucide="cpu" class="w-4 h-4"></i> Техн. Модель & JSON
+            </button>
+            <button onclick="switchTab('features')" id="btn-features" class="tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold transition text-left">
+                <i data-lucide="grid" class="w-4 h-4"></i> Модули & Настройки
+            </button>
+            <button onclick="switchTab('status')" id="btn-status" class="tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold transition text-left">
+                <i data-lucide="check-square" class="w-4 h-4"></i> Чек-лист и Статус ■
+            </button>
+            <button onclick="switchTab('roadmap')" id="btn-roadmap" class="tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold transition text-left">
+                <i data-lucide="map" class="w-4 h-4"></i> Роадмап проекта
+            </button>
+            <button onclick="switchTab('business')" id="btn-business" class="tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold transition text-left">
+                <i data-lucide="credit-card" class="w-4 h-4"></i> Тарифы & Workspace
+            </button>
+            <button onclick="switchTab('goals')" id="btn-goals" class="tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold transition text-left">
+                <i data-lucide="target" class="w-4 h-4"></i> Цели & RAM Аналитика
+            </button>
+
+            <div class="mt-4 p-3 rounded-xl bg-[#C5B5F9]/10 border border-[#C5B5F9]/20 text-xs text-[#C5B5F9]">
+                <div class="font-bold mb-1 flex items-center gap-1.5">
+                    <i data-lucide="sparkles" class="w-3.5 h-3.5 text-[#C5B5F9]"></i> AI & Cloud Sync
+                </div>
+                7-дневные брифинги, оптимизация RAM, экспорт JSON/MD и защита 2FA Telegram.
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT AREA -->
+        <main class="lg:col-span-9 flex flex-col gap-6">
+
+            <!-- TAB 1: OVERVIEW -->
+            <section id="tab-overview" class="tab-content flex flex-col gap-6">
+                <!-- HERO CARD -->
+                <div class="glass-panel p-8 rounded-3xl relative overflow-hidden border border-[#C5B5F9]/30 bg-gradient-to-br from-[#230F4B] via-[#1A0A3A] to-[#12062B]">
+                    <div class="absolute -right-10 -bottom-10 w-72 h-72 bg-[#C5B5F9]/15 rounded-full blur-3xl pointer-events-none"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold gradient-badge mb-4">
+                        Презентация Selftabs
+                    </span>
+                    <h1 class="text-3xl md:text-5xl font-black text-white tracking-tight leading-tight mb-4">
+                        Единая экосистема парковки & аналитики вкладок <span class="gradient-text">Selftabs</span>
+                    </h1>
+                    <p class="text-[#C5B5F9]/90 text-sm md:text-base leading-relaxed max-w-2xl mb-6">
+                        Selftabs превращает хаос из десятков открытых страниц в структурированные сессии, высвобождает RAM, предоставляет AI-дайджесты и объединяет команды через совместные Workspace сессии.
+                    </p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4 border-t border-[#C5B5F9]/20">
+                        <div>
+                            <div class="text-[11px] text-[#C5B5F9]/70">Платформы</div>
+                            <div class="text-xs font-bold text-white mt-1">Browser + Desktop + Telegram</div>
+                        </div>
+                        <div>
+                            <div class="text-[11px] text-[#C5B5F9]/70">Технологии</div>
+                            <div class="text-xs font-bold text-[#C5B5F9] mt-1">Python (FastAPI) + React</div>
+                        </div>
+                        <div>
+                            <div class="text-[11px] text-[#C5B5F9]/70">Официальный домен</div>
+                            <div class="text-xs font-bold text-white mt-1">selftabs.ru</div>
+                        </div>
+                        <div>
+                            <div class="text-[11px] text-[#C5B5F9]/70">Модель монетизации</div>
+                            <div class="text-xs font-bold text-emerald-400 mt-1">Freemium + Workspace $10</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ECOSYSTEM TRIPLE -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="glass-card p-5 rounded-2xl">
+                        <div class="w-10 h-10 rounded-xl bg-[#C5B5F9]/15 text-[#C5B5F9] flex items-center justify-center mb-4 border border-[#C5B5F9]/30">
+                            <i data-lucide="chrome" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-white mb-2">Расширение v1.0.0</h3>
+                        <p class="text-xs text-[#C5B5F9]/80 leading-relaxed">
+                            Установка на ПК, парковка сессий, прямое перетаскивание вкладки в браузер через drag-and-drop, ограничение вкладок, точечные фильтры и контроль RAM.
+                        </p>
+                    </div>
+
+                    <div class="glass-card p-5 rounded-2xl">
+                        <div class="w-10 h-10 rounded-xl bg-[#C5B5F9]/15 text-[#C5B5F9] flex items-center justify-center mb-4 border border-[#C5B5F9]/30">
+                            <i data-lucide="monitor" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-white mb-2">Десктоп Приложение</h3>
+                        <p class="text-xs text-[#C5B5F9]/80 leading-relaxed">
+                            Управление категориями и папками под разные задачи, кастомизация дизайна в стиле MyWallet, автономный режим и быстрая локальная синхронизация.
+                        </p>
+                    </div>
+
+                    <div class="glass-card p-5 rounded-2xl">
+                        <div class="w-10 h-10 rounded-xl bg-[#C5B5F9]/15 text-[#C5B5F9] flex items-center justify-center mb-4 border border-[#C5B5F9]/30">
+                            <i data-lucide="send" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-white mb-2">Telegram Бот & Mini App</h3>
+                        <p class="text-xs text-[#C5B5F9]/80 leading-relaxed">
+                            Рассылки, напоминание об истекающей подписке, 2FA подтверждение входа, поиск людей по юзернейму, просмотр профилей, графов статистики и сессий.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- VALUE PROPOSITION -->
+                <div class="glass-panel p-6 rounded-2xl">
+                    <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                        <i data-lucide="zap" class="w-5 h-5 text-[#C5B5F9]"></i> Ключевая ценность продукта Selftabs
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-4 rounded-xl bg-[#12062B]/80 border border-red-500/30">
+                            <div class="text-[10px] font-bold text-red-400 uppercase tracking-wider mb-1">Проблема пользователя</div>
+                            <div class="text-xs font-bold text-white mb-2">Хаос из 50+ вкладок и перегрузка RAM</div>
+                            <p class="text-xs text-[#C5B5F9]/70">Браузер расходует гигабайты оперативки, нужные статьи теряются, командный обмен ссылками превращается в мусор в чатах.</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-[#12062B]/80 border border-emerald-500/30">
+                            <div class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider mb-1">Решение Selftabs</div>
+                            <div class="text-xs font-bold text-white mb-2">Умная парковка, AI-выжимки & Workspace</div>
+                            <p class="text-xs text-[#C5B5F9]/70">Сохранение сессий по категориям, мгновенный перенос в браузер, AI-брифинги за 7 дней и общее пространство с экономией х2.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 2: TECH MODEL -->
+            <section id="tab-tech" class="tab-content hidden flex-col gap-6">
+                <div class="glass-panel p-6 rounded-2xl">
+                    <h2 class="text-xl font-bold text-white mb-2">Техническая архитектура и Модель данных</h2>
+                    <p class="text-xs text-[#C5B5F9]/80 mb-6">Стек: Python (FastAPI) + React + Extension (Manifest V3) + Desktop Wrapper + Telegram Bot API.</p>
+
+                    <!-- STACK GRID -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                        <div class="p-4 rounded-xl bg-[#12062B]/80 border border-[#C5B5F9]/20">
+                            <div class="text-[10px] text-[#C5B5F9] font-bold uppercase tracking-wider mb-1">Backend</div>
+                            <div class="text-sm font-bold text-white">Python (FastAPI)</div>
+                            <ul class="text-xs text-[#C5B5F9]/80 mt-2 space-y-1">
+                                <li>• REST API & Async эндпоинты</li>
+                                <li>• Google OAuth + Email Auth</li>
+                                <li>• Авторизация с переносом JWT</li>
+                                <li>• Верификация почты по коду</li>
+                            </ul>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-[#12062B]/80 border border-[#C5B5F9]/20">
+                            <div class="text-[10px] text-[#C5B5F9] font-bold uppercase tracking-wider mb-1">Frontend</div>
+                            <div class="text-sm font-bold text-white">React + Tailored UI</div>
+                            <ul class="text-xs text-[#C5B5F9]/80 mt-2 space-y-1">
+                                <li>• Chrome MV3 Extension</li>
+                                <li>• Подгрузка тенями (Shadow DOM)</li>
+                                <li>• Drag-and-drop прямо в браузер</li>
+                                <li>• Адаптивная тема (#1A0A3A/FFF/C5B5F9)</li>
+                            </ul>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-[#12062B]/80 border border-[#C5B5F9]/20">
+                            <div class="text-[10px] text-[#C5B5F9] font-bold uppercase tracking-wider mb-1">Integrations</div>
+                            <div class="text-sm font-bold text-white">Экосистема & Cloud</div>
+                            <ul class="text-xs text-[#C5B5F9]/80 mt-2 space-y-1">
+                                <li>• Telegram Bot API & 2FA</li>
+                                <li>• Gmail & Notion экспорт</li>
+                                <li>• Свой API Ключ ИИ</li>
+                                <li>• Резервное копирование в облако</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- DATA JSON SCHEMA -->
+                    <div class="p-4 rounded-xl bg-[#0F0523] border border-[#C5B5F9]/20 font-mono text-xs">
+                        <div class="flex justify-between items-center pb-2 mb-3 border-b border-[#C5B5F9]/15 text-[#C5B5F9]/80">
+                            <span class="flex items-center gap-2"><i data-lucide="code" class="w-4 h-4 text-[#C5B5F9]"></i> Структурная JSON Модель Selftabs</span>
+                            <span class="text-[10px] bg-[#1A0A3A] px-2 py-0.5 rounded text-[#C5B5F9] border border-[#C5B5F9]/30">schema.json</span>
+                        </div>
+                        <pre class="text-[#C5B5F9] overflow-x-auto custom-scrollbar"><code>{
+  "User": {
+    "id": "usr_77201a",
+    "name": "Max Sidorov",
+    "username": "max_dev",
+    "photo": "https://selftabs.ru/avatars/max.png",
+    "bio": "Full-stack developer building Selftabs",
+    "status": "Pro",  // options: Free, Pro, Team
+    "auth": {
+      "google_linked": true,
+      "email_verified": true,
+      "jwt_token": "eyJhbGciOiJIUzI1Ni..."
+    },
+    "integrations": {
+      "telegram_id": 98124012,
+      "notion_connected": true,
+      "gmail_connected": true
+    },
+    "settings": {
+      "custom_ai_key": "sk-proj-...",
+      "passcode_enabled": true,
+      "2fa_telegram": true,
+      "auto_backup_interval": "daily"
+    },
+    "sessions": [
+      {
+        "session_id": "sess_102",
+        "created_at": "2026-09-10T15:30:00Z",
+        "category": "Development",
+        "tabs": [
+          { "id": 1, "name": "FastAPI Docs", "url": "https://fastapi.tiangolo.com", "desc": "Async Python Framework" },
+          { "id": 2, "name": "React Documentation", "url": "https://react.dev", "desc": "UI Component Library" },
+          { "id": 3, "name": "Selftabs Repo", "url": "https://github.com/selftabs", "desc": "Core repository" }
+        ]
+      }
+    ]
+  },
+  "Workspace": {
+    "id": "ws_selftabs_team",
+    "name": "My Workspace",
+    "owner_id": "usr_77201a",
+    "price_usd": 10,
+    "max_members": 10,
+    "members": ["usr_77201a", "usr_88293b", "usr_99104c"],
+    "shared_sessions": ["sess_102"]
+  }
+}</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 3: FEATURES & MODULES -->
+            <section id="tab-features" class="tab-content hidden flex-col gap-6">
+                <!-- GRID 2x2 FOR ALL MODULES -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                    <!-- SELF vs WORKSPACE -->
+                    <div class="glass-panel p-6 rounded-2xl flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <h3 class="text-base font-bold text-white flex items-center gap-2">
+                                    <i data-lucide="users" class="w-5 h-5 text-[#C5B5F9]"></i> Self vs Workspace
+                                </h3>
+                                <span class="text-[10px] bg-[#C5B5F9]/20 text-[#C5B5F9] px-2.5 py-1 rounded-full font-bold border border-[#C5B5F9]/30">Пространства</span>
+                            </div>
+                            <p class="text-xs text-[#C5B5F9]/80 mb-4">
+                                Разделение личных и командных сессий в один клик.
+                            </p>
+                            <ul class="text-xs text-[#C5B5F9]/90 space-y-2.5">
+                                <li class="flex items-start gap-2">
+                                    <i data-lucide="check-circle-2" class="w-4 h-4 text-[#C5B5F9] shrink-0 mt-0.5"></i>
+                                    <span><strong>Self:</strong> Персональные сессии, всё твое, полная приватность и бесплатный доступ.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i data-lucide="check-circle-2" class="w-4 h-4 text-[#C5B5F9] shrink-0 mt-0.5"></i>
+                                    <span><strong>Workspace ($10/мес):</strong> Командный доступ до 10 человек (экономия в 2 раза), доступ к «общим» сессиям.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i data-lucide="check-circle-2" class="w-4 h-4 text-[#C5B5F9] shrink-0 mt-0.5"></i>
+                                    <span><strong>Управление:</strong> Выбор конкретных вкладок для перемещения или удаления из Workspace.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- AI MODULE -->
+                    <div class="glass-panel p-6 rounded-2xl flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <h3 class="text-base font-bold text-white flex items-center gap-2">
+                                    <i data-lucide="bot" class="w-5 h-5 text-[#C5B5F9]"></i> AI Модуль & Дайджесты
+                                </h3>
+                                <span class="text-[10px] bg-[#C5B5F9]/20 text-[#C5B5F9] px-2.5 py-1 rounded-full font-bold border border-[#C5B5F9]/30">Интеллект</span>
+                            </div>
+                            <p class="text-xs text-[#C5B5F9]/80 mb-4">
+                                Автоматический анализ прочитанного контента.
+                            </p>
+                            <ul class="text-xs text-[#C5B5F9]/90 space-y-2.5">
+                                <li class="flex items-start gap-2">
+                                    <i data-lucide="sparkles" class="w-4 h-4 text-[#C5B5F9] shrink-0 mt-0.5"></i>
+                                    <span><strong>7-дневный брифинг:</strong> Еженедельные weekly дайджесты сохраненных сайтов.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i data-lucide="sparkles" class="w-4 h-4 text-[#C5B5F9] shrink-0 mt-0.5"></i>
+                                    <span><strong>Сводка по странице:</strong> Мгновенный пересказ открытой вкладки прямо в браузер.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i data-lucide="sparkles" class="w-4 h-4 text-[#C5B5F9] shrink-0 mt-0.5"></i>
+                                    <span><strong>Свой API Ключ ИИ:</strong> Подключение персонального OpenAI/Claude API ключа.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- PROFILE & CUSTOMIZATION -->
+                    <div class="glass-panel p-6 rounded-2xl flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-base font-bold text-white mb-3 flex items-center gap-2">
+                                <i data-lucide="palette" class="w-5 h-5 text-[#C5B5F9]"></i> Профиль & Кастомизация
+                            </h3>
+                            <ul class="text-xs text-[#C5B5F9]/90 space-y-2">
+                                <li>• <strong>Профиль:</strong> Аватарка, Юзернейм, Имя, Био, Статус-кольцо (Pro, Team).</li>
+                                <li>• <strong>Дизайн:</strong> Адаптивная тема (#1A0A3A, #FFF, #C5B5F9), шрифт Iosevka Charon Mono.</li>
+                                <li>• <strong>Кастомизация папок (Pro):</strong> Размытие (blur), анимации, сезонное оформление, точечная настройка дизайна в стиле MyWallet.</li>
+                                <li>• <strong>Интеграция сервисов:</strong> Telegram, Google, Notion, Gmail.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- SECURITY & EXPORT -->
+                    <div class="glass-panel p-6 rounded-2xl flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-base font-bold text-white mb-3 flex items-center gap-2">
+                                <i data-lucide="shield-check" class="w-5 h-5 text-[#C5B5F9]"></i> Безопасность & Резервирование
+                            </h3>
+                            <ul class="text-xs text-[#C5B5F9]/90 space-y-2">
+                                <li>• <strong>Безопасность:</strong> Шифрование данных, Код-пароль, 2FA с Telegram, Почта для входа, Список устройств.</li>
+                                <li>• <strong>Исключения:</strong> Настройка сайтов-исключений для авто-парковок.</li>
+                                <li>• <strong>Экспорт:</strong> Экспорт сессий в JSON и Markdown, авто-бэкап по интервалам, облачная синхронизация (Pro).</li>
+                                <li>• <strong> Telegram:</strong> Поиск людей по юзернейму, просмотр сессий и графа статистики, переключатель публичного показа.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- TAB 4: CURRENT STATUS -->
+            <section id="tab-status" class="tab-content hidden flex-col gap-6">
+                <div class="glass-panel p-6 rounded-2xl">
+                    <div class="flex justify-between items-center mb-6">
+                        <div>
+                            <h2 class="text-xl font-bold text-white">Текущий статус готовности функционала</h2>
+                            <p class="text-xs text-[#C5B5F9]/80">Детальный чек-лист выполненных (■) и находящихся в работе задач</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-2xl font-black text-[#C5B5F9]">70%</span>
+                            <div class="text-[10px] text-[#C5B5F9]/70 uppercase tracking-wider">MVP Готовность</div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                        <!-- COMPLETED ITEMS (■) -->
+                        <div class="p-4 rounded-xl bg-emerald-950/30 border border-emerald-500/40">
+                            <h3 class="text-xs font-bold text-emerald-400 flex items-center gap-2 mb-3 uppercase tracking-wider">
+                                <i data-lucide="check-square" class="w-4 h-4"></i> Выполнено (■)
+                            </h3>
+                            <ul class="text-xs text-emerald-200/90 space-y-2">
+                                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Авторизация (Google/Email) с переносом JWT токена ■</li>
+                                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Рабочие фильтры ■</li>
+                                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Велком панель ■</li>
+                                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Ограничение по вкладкам ■</li>
+                                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Панель настроек ■</li>
+                                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Рабочие подключенные вкладки ■</li>
+                                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Подгрузка тенями (Shadow rendering) ■</li>
+                                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Сохранение в общую БД по категориям ●</li>
+                                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Регистрация через Google ●</li>
+                                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Базовые API эндпоинты ●</li>
+                            </ul>
+                        </div>
+
+                        <!-- IN PROGRESS ITEMS -->
+                        <div class="p-4 rounded-xl bg-purple-950/30 border border-[#C5B5F9]/40">
+                            <h3 class="text-xs font-bold text-[#C5B5F9] flex items-center gap-2 mb-3 uppercase tracking-wider">
+                                <i data-lucide="loader" class="w-4 h-4 animate-spin"></i> В разработке / В планах
+                            </h3>
+                            <ul class="text-xs text-[#C5B5F9]/90 space-y-2">
+                                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-[#C5B5F9]"></span> Начало работы с Workspace ($10/мес, до 10 чел.)</li>
+                                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-[#C5B5F9]"></span> Перенос вкладки через драг сразу в браузер ●</li>
+                                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-[#C5B5F9]"></span> Показатель загруженности RAM</li>
+                                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-[#C5B5F9]"></span> Создание своих фильтраций (с цветами и выбором)</li>
+                                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-[#C5B5F9]"></span> 2FA авторизация через Telegram и уведомления</li>
+                                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-[#C5B5F9]"></span> Точечная настройка дизайна как в MyWallet ●</li>
+                                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-[#C5B5F9]"></span> Экспорт в JSON и Markdown + Авто-бэкап</li>
+                                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-[#C5B5F9]"></span> Поиск людей по юзернейму в Telegram бота</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 5: ROADMAP -->
+            <section id="tab-roadmap" class="tab-content hidden flex-col gap-6">
+                <div class="glass-panel p-6 rounded-2xl">
+                    <h2 class="text-xl font-bold text-white mb-2">Роадмап развития Selftabs</h2>
+                    <p class="text-xs text-[#C5B5F9]/80 mb-6">Пошаговый план разработки от Core MVP до экосистемы</p>
+
+                    <div class="relative border-l-2 border-[#C5B5F9]/30 ml-3 space-y-8">
+
+                        <!-- PHASE 1 -->
+                        <div class="relative pl-6">
+                            <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-[#C5B5F9] border-4 border-[#1A0A3A]"></div>
+                            <div class="text-[10px] font-bold text-[#C5B5F9] uppercase tracking-wider mb-1">Q3 2026 — Фаза 1: Core MVP</div>
+                            <h3 class="text-sm font-bold text-white mb-2">Запуск Расширения v1.0.0 & FastAPI Backend</h3>
+                            <p class="text-xs text-[#C5B5F9]/80 leading-relaxed">
+                                Завершение авторизации Google/Email с переносом JWT, подгрузка тенями, велком панель, ограничение по вкладкам, сохранение по категориям и панель настроек.
+                            </p>
+                        </div>
+
+                        <!-- PHASE 2 -->
+                        <div class="relative pl-6">
+                            <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-purple-400 border-4 border-[#1A0A3A]"></div>
+                            <div class="text-[10px] font-bold text-purple-300 uppercase tracking-wider mb-1">Q4 2026 — Фаза 2: Telegram Bot & AI Summarizer</div>
+                            <h3 class="text-sm font-bold text-white mb-2">Интеграция ИИ, Telegram Bot & Безопасность</h3>
+                            <p class="text-xs text-[#C5B5F9]/80 leading-relaxed">
+                                Запуск 7-дневных AI-брифингов и сводки читаемой страницы, 2FA через Telegram, рассылки, поиск пользователей по юзернейму, просмотр графов статистики, статус-кольцо профиля и авто-бэкап.
+                            </p>
+                        </div>
+
+                        <!-- PHASE 3 -->
+                        <div class="relative pl-6">
+                            <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-pink-400 border-4 border-[#1A0A3A]"></div>
+                            <div class="text-[10px] font-bold text-pink-300 uppercase tracking-wider mb-1">Q1 2027 — Фаза 3: Workspace & Monetization</div>
+                            <h3 class="text-sm font-bold text-white mb-2">Запуск Workspace ($10/мес) & Pro Тарифов</h3>
+                            <p class="text-xs text-[#C5B5F9]/80 leading-relaxed">
+                                Командный доступ до 10 человек (экономия в 2 раза), кастомизация папок и дизайна в стиле MyWallet (шрифты, размытия, анимации), индикатор загруженности RAM, драг вкладок в браузер.
+                            </p>
+                        </div>
+
+                        <!-- PHASE 4 -->
+                        <div class="relative pl-6">
+                            <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-emerald-400 border-4 border-[#1A0A3A]"></div>
+                            <div class="text-[10px] font-bold text-emerald-300 uppercase tracking-wider mb-1">Q2 2027 — Фаза 4: Desktop App & Global Catalog</div>
+                            <h3 class="text-sm font-bold text-white mb-2">Десктоп приложение & Публичный Каталог Категорий</h3>
+                            <p class="text-xs text-[#C5B5F9]/80 leading-relaxed">
+                                Выход десктоп-версии для Windows/Mac, глобальный каталог пользовательских категорий, интеграция с Notion/Gmail, продвинутое E2E шифрование.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 6: BUSINESS & SUBSCRIPTIONS -->
+            <section id="tab-business" class="tab-content hidden flex-col gap-6">
+                <div class="glass-panel p-6 rounded-2xl">
+                    <h2 class="text-xl font-bold text-white mb-2">Модель подписок и Монетизация</h2>
+                    <p class="text-xs text-[#C5B5F9]/80 mb-6">Гибкие тарифные планы для персонального и командного использования</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                        <!-- FREE PLAN -->
+                        <div class="glass-card p-5 rounded-2xl flex flex-col justify-between border border-[#C5B5F9]/20">
+                            <div>
+                                <div class="text-[10px] font-bold text-[#C5B5F9]/70 uppercase tracking-wider mb-1">Self Free</div>
+                                <div class="text-2xl font-black text-white mb-2">0 ₽ <span class="text-xs text-[#C5B5F9]/70 font-normal">/ навсегда</span></div>
+                                <p class="text-xs text-[#C5B5F9]/80 mb-4">Базовая функциональность для одного пользователя.</p>
+                                <ul class="text-xs text-[#C5B5F9]/90 space-y-2 mb-6">
+                                    <li>✓ Личный раздел Self</li>
+                                    <li>✓ До 50 активных вкладок</li>
+                                    <li>✓ Google & Email авторизация</li>
+                                    <li>✓ Базовая адаптивная тема</li>
+                                    <li>✓ Исключения для сайтов</li>
+                                </ul>
+                            </div>
+                            <button class="w-full py-2.5 rounded-xl text-xs font-bold bg-[#12062B] text-[#C5B5F9] border border-[#C5B5F9]/30">Текущий тариф</button>
+                        </div>
+
+                        <!-- PRO PLAN -->
+                        <div class="glass-card p-5 rounded-2xl flex flex-col justify-between border border-[#C5B5F9] bg-[#C5B5F9]/10 relative">
+                            <span class="absolute -top-3 right-4 bg-[#C5B5F9] text-[#1A0A3A] text-[10px] font-black px-2.5 py-0.5 rounded-full">РЕКОМЕНДУЕМ</span>
+                            <div>
+                                <div class="text-[10px] font-bold text-[#C5B5F9] uppercase tracking-wider mb-1">Pro Pass</div>
+                                <div class="text-2xl font-black text-white mb-2">290 ₽ <span class="text-xs text-[#C5B5F9]/70 font-normal">/ мес</span></div>
+                                <p class="text-xs text-[#C5B5F9]/80 mb-4">Для продуктивной работы с AI и кастомизацией.</p>
+                                <ul class="text-xs text-[#C5B5F9]/90 space-y-2 mb-6">
+                                    <li>✓ Безлимитные вкладки и сессии</li>
+                                    <li>✓ AI 7-дневный дайджест & выжимка</li>
+                                    <li>✓ Кастомизация MyWallet (папки, шрифты, блёры)</li>
+                                    <li>✓ Авто-бэкап в облако (JSON / Markdown)</li>
+                                    <li>✓ Свой API ключ ИИ</li>
+                                    <li>✓ Статус-кольцо Pro вокруг профиля</li>
+                                </ul>
+                            </div>
+                            <button class="w-full py-2.5 rounded-xl text-xs font-bold bg-[#C5B5F9] text-[#1A0A3A] shadow-lg shadow-[#C5B5F9]/30">Подключить Pro</button>
+                        </div>
+
+                        <!-- WORKSPACE PLAN -->
+                        <div class="glass-card p-5 rounded-2xl flex flex-col justify-between border border-pink-400/50 bg-pink-950/20">
+                            <div>
+                                <div class="text-[10px] font-bold text-pink-300 uppercase tracking-wider mb-1">Team Workspace</div>
+                                <div class="text-2xl font-black text-white mb-2">$10 <span class="text-xs text-[#C5B5F9]/70 font-normal">/ мес (~900 ₽)</span></div>
+                                <p class="text-xs text-[#C5B5F9]/80 mb-4">Совместная работа для команд и проектов.</p>
+                                <ul class="text-xs text-[#C5B5F9]/90 space-y-2 mb-6">
+                                    <li>✓ До 10 участников (х2 экономия)</li>
+                                    <li>✓ Общие командные сессии Workspace</li>
+                                    <li>✓ Шеринг отдельных вкладок</li>
+                                    <li>✓ Статус-кольцо Team в профиле</li>
+                                    <li>✓ Приоритетный Cloud Sync</li>
+                                </ul>
+                            </div>
+                            <button class="w-full py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-pink-500 to-purple-600 text-white shadow-lg shadow-pink-500/30">Создать Workspace</button>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 7: GOALS & RAM METRICS -->
+            <section id="tab-goals" class="tab-content hidden flex-col gap-6">
+                <div class="glass-panel p-6 rounded-2xl">
+                    <h2 class="text-xl font-bold text-white mb-2">Продуктовые Цели & RAM Аналитика</h2>
+                    <p class="text-xs text-[#C5B5F9]/80 mb-6">Ключевые ориентиры Selftabs и системные показатели</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+
+                        <div class="p-4 rounded-xl bg-[#12062B]/80 border border-[#C5B5F9]/20">
+                            <div class="w-8 h-8 rounded-lg bg-[#C5B5F9]/20 text-[#C5B5F9] flex items-center justify-center mb-3">
+                                <i data-lucide="users" class="w-4 h-4"></i>
+                            </div>
+                            <div class="text-xl font-bold text-white mb-1">10,000+ MAU</div>
+                            <div class="text-xs text-[#C5B5F9]/70">Активные пользователи расширения и Telegram Mini App за первые 12 месяцев.</div>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-[#12062B]/80 border border-[#C5B5F9]/20">
+                            <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center mb-3">
+                                <i data-lucide="trending-up" class="w-4 h-4"></i>
+                            </div>
+                            <div class="text-xl font-bold text-white mb-1">$2,000+ MRR</div>
+                            <div class="text-xs text-[#C5B5F9]/70">Регулярная выручка за счёт конверсии в Pro Pass (290 ₽) и Workspace ($10).</div>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-[#12062B]/80 border border-[#C5B5F9]/20">
+                            <div class="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-300 flex items-center justify-center mb-3">
+                                <i data-lucide="cpu" class="w-4 h-4"></i>
+                            </div>
+                            <div class="text-xl font-bold text-white mb-1">-45% Нагрузки RAM</div>
+                            <div class="text-xs text-[#C5B5F9]/70">Экономия оперативной памяти после парковки сессий через встроенный RAM индикатор.</div>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-[#12062B]/80 border border-[#C5B5F9]/20">
+                            <div class="w-8 h-8 rounded-lg bg-pink-500/20 text-pink-300 flex items-center justify-center mb-3">
+                                <i data-lucide="share-2" class="w-4 h-4"></i>
+                            </div>
+                            <div class="text-xl font-bold text-white mb-1">15% Виральность</div>
+                            <div class="text-xs text-[#C5B5F9]/70">Органический рост за счет публичного показа профилей и командных ссылок Workspace.</div>
+                        </div>
+
+                    </div>
+
+                    <!-- CORE METRICS COLLECTED -->
+                    <div class="p-4 rounded-xl bg-[#12062B]/60 border border-[#C5B5F9]/15">
+                        <h3 class="text-xs font-bold text-[#C5B5F9] uppercase tracking-wider mb-2">Сбор Кор-информации и Статистика</h3>
+                        <p class="text-xs text-[#C5B5F9]/80 leading-relaxed">
+                            Selftabs анализирует системные метрики пользователя (время работы, количество вкладок, тематические категории, пиковые часы использования, средняя продолжительность сессии) и выводит их в виде лайв-статистики и графов в профиле с возможностью публичного шеринга.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="mt-auto border-t border-[#C5B5F9]/20 py-6 px-6 glass-panel">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-[#C5B5F9]/70">
+            <div>
+                © 2026 Selftabs (<a href="https://selftabs.ru" target="_blank" class="text-[#C5B5F9] hover:underline">selftabs.ru</a>). Все права защищены.
+            </div>
+            <div class="flex items-center gap-4">
+                <span>FastAPI</span> • <span>React</span> • <span>Manifest V3</span> • <span>Telegram Bot</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Switch Tabs Logic
+        function switchTab(tabId) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(el => {
+                el.classList.add('hidden');
+                el.classList.remove('flex');
+            });
+
+            // Remove active style from all buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show current tab content
+            const activeContent = document.getElementById('tab-' + tabId);
+            if (activeContent) {
+                activeContent.classList.remove('hidden');
+                activeContent.classList.add('flex');
+            }
+
+            // Highlight current active button
+            const activeBtn = document.getElementById('btn-' + tabId);
+            if (activeBtn) {
+                activeBtn.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
