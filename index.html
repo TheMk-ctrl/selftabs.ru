@@ -382,167 +382,381 @@
 
 // ── Auto language detection ──────────────────────────────────────
 (function () {
-  var T = {
-    ru: {
-      'nav-problem':  'Проблема',
-      'nav-solution': 'Решение',
-      'nav-compare':  'Сравнение',
-      'nav-plans':    'Планы',
-      'nav-try':      'Попробовать →',
-      'hero-badge':   'Открыт набор бета-тестеров',
-      'hero-h1':      '47 вкладок открыто.<br><span style="color:rgb(197,181,249);">Ни одна не под контролем.</span>',
-      'hero-sub':     'Selftabs закрывает браузерный хаос навсегда. Одна кнопка — и 47 вкладок разложены по папкам, сессия сохранена, AI рассказал что ты делал. Chrome + Desktop + Telegram.',
-      'hero-btn1':    'Установить расширение',
-      'hero-btn2':    'Смотреть демо',
-      'stat-label':   'Реальная проблема',
-      'stat1-title':  '47<span style="font-size:0.45em;color:rgb(170,170,170);font-weight:400;"> вкладок</span>',
-      'stat1-sub':    'в среднем открыто у разработчика',
-      'stat1-desc':   'RAM съедена, браузер тормозит, вкладки давно забыты',
-      'stat2-title':  '83%',
-      'stat2-sub':    'вкладок так и не читают',
-      'stat2-desc':   'Открыл «на потом» — и потерял навсегда среди других 40',
-      'stat3-title':  '0<span style="font-size:0.45em;color:rgb(170,170,170);font-weight:400;"> категорий</span>',
-      'stat3-sub':    'у стандартного браузера',
-      'stat3-desc':   'Research, работа, шопинг, дизайн — всё в одной куче без разбора',
-      'prob-label':   'Боли',
-      'prob-h2':      'Почему браузер —<br>это хаос',
-      'sol-label':    'Как это работает',
-      'sol-h2':       'Четыре шага к порядку',
-      'cta-badge':    '✦ Открыт набор бета-тестеров',
-      'cta-h2':       'Начни управлять вкладками умнее',
-      'cta-sub':      'Если у тебя открыто 20, 30, 50 вкладок — Selftabs сортирует их за один клик. Для разработчиков и дизайнеров.',
-      'cta-btn1':     'Установить расширение',
-      'cta-btn2':     'Подключить Telegram',
-    },
-    en: {
-      'nav-problem':  'Problem',
-      'nav-solution': 'Solution',
-      'nav-compare':  'Compare',
-      'nav-plans':    'Plans',
-      'nav-try':      'Try it →',
-      'hero-badge':   'Beta testers welcome',
-      'hero-h1':      '47 tabs open.<br><span style="color:rgb(197,181,249);">None of them under control.</span>',
-      'hero-sub':     'Selftabs kills browser chaos for good. One click — 47 tabs sorted into folders, session saved, AI tells you what you were doing. Chrome + Desktop + Telegram.',
-      'hero-btn1':    'Install Extension',
-      'hero-btn2':    'Watch Demo',
-      'stat-label':   'The real problem',
-      'stat1-title':  '47<span style="font-size:0.45em;color:rgb(170,170,170);font-weight:400;"> tabs</span>',
-      'stat1-sub':    'open on average for a developer',
-      'stat1-desc':   'RAM devoured, browser sluggish, tabs long forgotten',
-      'stat2-title':  '83%',
-      'stat2-sub':    'of tabs are never read',
-      'stat2-desc':   'Opened "for later" — lost forever among the other 40',
-      'stat3-title':  '0<span style="font-size:0.45em;color:rgb(170,170,170);font-weight:400;"> categories</span>',
-      'stat3-sub':    'in a standard browser',
-      'stat3-desc':   'Research, work, shopping, design — all jumbled together',
-      'prob-label':   'Pain points',
-      'prob-h2':      'Why your browser<br>is chaos',
-      'sol-label':    'How it works',
-      'sol-h2':       'Four steps to order',
-      'cta-badge':    '✦ Beta testers welcome',
-      'cta-h2':       'Start managing tabs smarter',
-      'cta-sub':      'If you have 20, 30, 50 tabs open — Selftabs sorts them in one click. Built for developers and designers.',
-      'cta-btn1':     'Install Extension',
-      'cta-btn2':     'Connect Telegram',
-    }
+  var browserLang = (navigator.language || navigator.userLanguage || 'ru').toLowerCase();
+  if (browserLang.startsWith('ru')) return; // page is already Russian
+
+  var t = {
+    // Nav
+    'nav-problem':  'Problem',
+    'nav-solution': 'Solution',
+    'nav-compare':  'Compare',
+    'nav-plans':    'Plans',
+    'nav-try':      'Try it →',
+
+    // Hero
+    'hero-badge':   'Beta testers welcome',
+    'hero-h1':      '47 tabs open.<br><span style="color:rgb(197,181,249);">None of them under control.</span>',
+    'hero-sub':     'Selftabs kills browser chaos for good. One click — 47 tabs sorted into folders, session saved, AI tells you what you were doing. Chrome + Desktop + Telegram.',
+    'hero-btn1':    'Install Extension',
+    'hero-btn2':    'Watch Demo',
+
+    // Hero mockup AI panel
+    'mockup-ai-title':  '✦ AI Summary · Today',
+    'mockup-ai-body':   'You studied <span style="color:rgb(197,181,249);">React</span> and <span style="color:rgb(197,181,249);">async</span> patterns. 5 tabs, 3 topics.',
+    'mockup-ram-label': 'RAM freed',
+    'mockup-ask':       'Ask something...',
+
+    // Stats band
+    'stat-label':   'The real problem',
+    'stat1-title':  '47<span style="font-size:0.45em;color:rgb(170,170,170);font-weight:400;"> tabs</span>',
+    'stat1-sub':    'open on average for a developer',
+    'stat1-desc':   'RAM devoured, browser sluggish, tabs long forgotten',
+    'stat2-title':  '83%',
+    'stat2-sub':    'of tabs are never read',
+    'stat2-desc':   'Opened "for later" — lost forever among the other 40',
+    'stat3-title':  '0<span style="font-size:0.45em;color:rgb(170,170,170);font-weight:400;"> categories</span>',
+    'stat3-sub':    'in a standard browser',
+    'stat3-desc':   'Research, work, shopping, design — all jumbled together',
+
+    // Problems section — label + h2
+    'prob-label':   'Pain points',
+    'prob-h2':      'Why your browser<br>is chaos',
+    // Problem cards [title, desc]
+    'prob1-title':  'RAM dies on startup',
+    'prob1-desc':   'Every tab is 100–300 MB of memory. 40 tabs = 4–12 GB. Browser freezes, laptop overheats, work grinds to a halt.',
+    'prob2-title':  'No categorisation',
+    'prob2-desc':   'Research, tasks, reading, design references — all mixed up. Finding what you need takes 5 minutes.',
+    'prob3-title':  '"I\'ll read it later" — never',
+    'prob3-desc':   'Tabs pile up for weeks. You no longer remember why you opened half of them.',
+    'prob4-title':  'Sessions don\'t save',
+    'prob4-desc':   'A reload, update, or crash — and your entire working session of 30 tabs is gone. Start over.',
+    'prob5-title':  'No shared access',
+    'prob5-desc':   'Sending a colleague a set of tabs for a task means copying links one by one, manually.',
+    'prob6-title':  'Zero analytics',
+    'prob6-desc':   'How much time did you spend on which resource? What topics did you research this week? Nobody knows.',
+
+    // Solutions section — label + h2
+    'sol-label':    'How it works',
+    'sol-h2':       'Four steps to order',
+    // Workflow steps [title, desc]
+    'step1-title':  'You open your browser',
+    'step1-desc':   '30 tabs from last week, new tasks, articles, GitHub — all mixed together.',
+    'step2-title':  'Selftabs sorts them',
+    'step2-desc':   'One click — and all tabs are sorted by category. Research, Work, Design, Media.',
+    'step3-title':  'Save the session',
+    'step3-desc':   'Close your browser without fear. The session is saved and tabs will be restored exactly.',
+    'step4-title':  'AI recaps your day',
+    'step4-desc':   'Each morning you get a digest: what you read, what\'s left important, which topics dominated.',
+
+    // Features section
+    'feat-label':   'Features',
+    'feat-h2':      'Everything you need to manage tabs',
+    'feat1-title':  '1-click sorting',
+    'feat1-desc':   'AI analyses all open tabs and sorts them by category. Research, work, media — everything in its place.',
+    'feat2-title':  'Sessions & catalogue',
+    'feat2-desc':   'Save working sessions in one click. Close the browser without fear — your tabs aren\'t going anywhere.',
+    'feat3-title':  'AI digest',
+    'feat3-desc':   'Daily and weekly summaries of all your tabs. Selftabs tells you what you\'ve been studying.',
+    'feat4-title':  'Ask your tabs',
+    'feat4-desc':   'Ask a question — get an answer from the content of all saved sessions, just like Notion.',
+    'feat5-title':  'Unified ecosystem',
+    'feat5-desc':   'Chrome extension + Desktop app + Telegram bot. All synced in real time.',
+    'feat6-title':  'Team workspace',
+    'feat6-desc':   'Shared sessions for teams of up to 10. Share a link set for any task in one click.',
+
+    // Audience section
+    'aud-label':    'Who it\'s for',
+    'aud-h2':       'If you\'re a dev or designer —\nthis is for you',
+    'aud1-title':   'Developer',
+    'aud1-li1':     'Docs, GitHub, Stack Overflow in one place',
+    'aud1-li2':     'Save debug sessions for later',
+    'aud1-li3':     'AI search across all tab history',
+    'aud1-li4':     'Restore tabs into groups',
+    'aud2-title':   'Designer',
+    'aud2-li1':     'References sorted by category, no chaos',
+    'aud2-li2':     'Save inspiration as sessions',
+    'aud2-li3':     'Share collections with the team',
+    'aud2-li4':     'Weekly digest of what you\'ve read',
+    'aud3-title':   'Team',
+    'aud3-li1':     'Workspace for up to 10 people',
+    'aud3-li2':     'Shared sessions for tasks',
+    'aud3-li3':     'Activity leaderboard',
+    'aud3-li4':     'Telegram / Notion integration',
+
+    // Compare section
+    'cmp-label':    'Comparison',
+    'cmp-h2':       'Why Selftabs?',
+    'cmp-th1':      'Product',
+    'cmp-th2':      'Users',
+    'cmp-th3':      'Price',
+
+    // Plans section
+    'pln-label':    'Plans',
+    'pln-h2':       'Simple and honest pricing',
+    'pln-popular':  'Popular',
+    'pln-free-per': 'free forever',
+    'pln-pro-per':  'per month (~$3)',
+    'pln-team-per': 'per month (~$10)',
+    'pln-free-li1': 'Up to 50 saved tabs',
+    'pln-free-li2': 'Basic sorting',
+    'pln-free-li3': '5 active sessions',
+    'pln-free-li4': 'Chrome extension',
+    'pln-free-btn': 'Start for free',
+    'pln-pro-li1':  'Unlimited tabs & sessions',
+    'pln-pro-li2':  'AI digest & summaries',
+    'pln-pro-li3':  'Ask your tabs',
+    'pln-pro-li4':  'Telegram bot',
+    'pln-pro-li5':  'Desktop app',
+    'pln-pro-li6':  'Cloud sync',
+    'pln-pro-li7':  'Portable AI agent on page',
+    'pln-pro-li8':  'Advanced customisation',
+    'pln-pro-btn':  'Try Pro',
+    'pln-team-li1': 'Everything in Pro',
+    'pln-team-li2': 'Workspace for up to 10 people',
+    'pln-team-li3': 'Shared sessions',
+    'pln-team-li4': 'Activity leaderboards',
+    'pln-team-li5': 'Priority support',
+    'pln-team-btn': 'For teams',
+
+    // Prices (EN locale: USD primary, EUR secondary)
+    'pln-free-price':   '$0',
+    'pln-pro-price':    '$3<span style="font-size:14px;font-weight:400;color:#666;margin-left:6px;">€2.80</span>',
+    'pln-pro-per':      'per month (~€2.80)',
+    'pln-team-price':   '$10<span style="font-size:14px;font-weight:400;color:#888;margin-left:6px;">€9.30</span>',
+    'pln-team-per':     'per month (~€9.30)',
+    'pln-free-sub':     'free forever',
+    'cmp-price-toby':   '$4.50<span style="font-size:11px;font-weight:400;color:#999;margin-left:4px;">€4.20</span>',
+    'cmp-price-tabbud': '$50<span style="font-size:11px;font-weight:400;color:#999;margin-left:4px;">€46.50</span>',
+    'cmp-price-self':   '$3<span style="font-size:11px;font-weight:400;color:#888;margin-left:4px;">€2.80</span>',
+
+    // CTA
+    'cta-badge':    '✦ Beta testers welcome',
+    'cta-h2':       'Start managing tabs smarter',
+    'cta-sub':      'If you have 20, 30, 50 tabs open — Selftabs sorts them in one click. Built for developers and designers.',
+    'cta-btn1':     'Install Extension',
+    'cta-btn2':     'Connect Telegram',
   };
 
-  // Detect: ru if browser language starts with 'ru', otherwise en
-  var browserLang = (navigator.language || navigator.userLanguage || 'ru').toLowerCase();
-  var lang = browserLang.startsWith('ru') ? 'ru' : 'en';
+  function h(el, key) { if (el && t[key] !== undefined) el.innerHTML = t[key]; }
+  function s(el, key) { if (el && t[key] !== undefined) el.textContent = t[key]; }
+  function qs(root, sel) { return root.querySelector(sel); }
+  function qsa(root, sel) { return root.querySelectorAll(sel); }
 
-  // Page is already in Russian — only apply if non-Russian
-  if (lang === 'ru') return;
+  // ── Nav ──────────────────────────────────────────────────────
+  s(qs(document, '.nav-links a:nth-child(1)'), 'nav-problem');
+  s(qs(document, '.nav-links a:nth-child(2)'), 'nav-solution');
+  s(qs(document, '.nav-links a:nth-child(3)'), 'nav-compare');
+  s(qs(document, '.nav-links a:nth-child(4)'), 'nav-plans');
+  s(qs(document, 'a.nav-cta'),                 'nav-try');
+  s(qs(document, '.nav-mobile-menu a:nth-child(1)'), 'nav-problem');
+  s(qs(document, '.nav-mobile-menu a:nth-child(2)'), 'nav-solution');
+  s(qs(document, '.nav-mobile-menu a:nth-child(3)'), 'nav-plans');
+  s(qs(document, '.nav-mobile-menu a:nth-child(4)'), 'nav-compare');
+  s(qs(document, '.nav-mobile-menu a:nth-child(5)'), 'nav-try');
 
-  var t = T.en;
-
-  function setHTML(sel, key) {
-    var el = document.querySelector(sel);
-    if (el && t[key]) el.innerHTML = t[key];
-  }
-  function setText(sel, key) {
-    var el = document.querySelector(sel);
-    if (el && t[key]) el.textContent = t[key];
-  }
-
-  // Nav — desktop
-  setText('.nav-links a:nth-child(1)', 'nav-problem');
-  setText('.nav-links a:nth-child(2)', 'nav-solution');
-  setText('.nav-links a:nth-child(3)', 'nav-compare');
-  setText('.nav-links a:nth-child(4)', 'nav-plans');
-  setText('a.nav-cta',                 'nav-try');
-
-  // Nav — mobile
-  setText('.nav-mobile-menu a:nth-child(1)', 'nav-problem');
-  setText('.nav-mobile-menu a:nth-child(2)', 'nav-solution');
-  setText('.nav-mobile-menu a:nth-child(3)', 'nav-plans');
-  setText('.nav-mobile-menu a:nth-child(4)', 'nav-compare');
-  setText('.nav-mobile-menu a:nth-child(5)', 'nav-try');
-
-  // Hero
-  var hero = document.querySelector('section.sec');
+  // ── Hero ─────────────────────────────────────────────────────
+  var hero = qs(document, 'section.sec');
   if (hero) {
-    var badge = hero.querySelector('span[style*="font-size: 12px"][style*="font-weight: 600"]');
-    if (badge) badge.textContent = t['hero-badge'];
-    var h1 = hero.querySelector('h1');
-    if (h1) h1.innerHTML = t['hero-h1'];
-    var sub = hero.querySelector('p');
-    if (sub) sub.textContent = t['hero-sub'];
-    var heroBtns = hero.querySelectorAll('.hero-btns a');
-    if (heroBtns[0]) heroBtns[0].textContent = t['hero-btn1'];
-    if (heroBtns[1]) heroBtns[1].textContent = t['hero-btn2'];
+    var badge = qs(hero, 'span[style*="font-size: 12px"][style*="font-weight: 600"]');
+    s(badge, 'hero-badge');
+    h(qs(hero, 'h1'), 'hero-h1');
+    s(qs(hero, 'p'), 'hero-sub');
+    var hb = qsa(hero, '.hero-btns a');
+    s(hb[0], 'hero-btn1'); s(hb[1], 'hero-btn2');
+    // Mockup AI panel
+    var ai = qs(hero, '.mockup-ai');
+    if (ai) {
+      var aiDivs = ai.querySelectorAll('div');
+      h(aiDivs[0], 'mockup-ai-title');
+      h(aiDivs[1], 'mockup-ai-body');
+      s(aiDivs[2], 'mockup-ram-label');
+      var askSpan = qs(ai, 'span[style*="font-size: 11px"]');
+      if (askSpan) s(askSpan, 'mockup-ask');
+    }
   }
 
-  // Stats band (first dark section)
-  var statSection = document.querySelector('section[style*="background: rgb(10, 10, 10); padding: 80px"]');
-  if (statSection) {
-    var statLabel = statSection.querySelector('.acc-font');
-    if (statLabel) statLabel.textContent = t['stat-label'];
-    var cells = statSection.querySelectorAll('.grid-stats > div');
-    var keys = [
-      ['stat1-title','stat1-sub','stat1-desc'],
-      ['stat2-title','stat2-sub','stat2-desc'],
-      ['stat3-title','stat3-sub','stat3-desc'],
-    ];
-    cells.forEach(function (cell, i) {
-      if (!keys[i]) return;
-      var divs = cell.querySelectorAll('div');
-      if (divs[0]) divs[0].innerHTML   = t[keys[i][0]];
-      if (divs[1]) divs[1].textContent  = t[keys[i][1]];
-      if (divs[2]) divs[2].textContent  = t[keys[i][2]];
+  // ── Stats band ───────────────────────────────────────────────
+  var statSec = qs(document, 'section[style*="background: rgb(10, 10, 10); padding: 80px"]');
+  if (statSec) {
+    s(qs(statSec, '.acc-font'), 'stat-label');
+    var cells = qsa(statSec, '.grid-stats > div');
+    [['stat1-title','stat1-sub','stat1-desc'],
+     ['stat2-title','stat2-sub','stat2-desc'],
+     ['stat3-title','stat3-sub','stat3-desc']].forEach(function(k, i) {
+      var c = cells[i]; if (!c) return;
+      var ds = qsa(c, 'div');
+      h(ds[0], k[0]); s(ds[1], k[1]); s(ds[2], k[2]);
     });
   }
 
-  // Problems
+  // ── Problems ─────────────────────────────────────────────────
   var probSec = document.getElementById('problems_sec');
   if (probSec) {
-    var pl = probSec.querySelector('div[style*="font-size: 12px"][style*="font-weight: 600"]');
-    if (pl) pl.textContent = t['prob-label'];
-    var ph = probSec.querySelector('h2');
-    if (ph) ph.innerHTML = t['prob-h2'];
+    s(qs(probSec, 'div[style*="font-size: 12px"][style*="font-weight: 600"]'), 'prob-label');
+    h(qs(probSec, 'h2'), 'prob-h2');
+    var tiles = qsa(probSec, '.tile');
+    [['prob1-title','prob1-desc'],['prob2-title','prob2-desc'],['prob3-title','prob3-desc'],
+     ['prob4-title','prob4-desc'],['prob5-title','prob5-desc'],['prob6-title','prob6-desc']]
+    .forEach(function(k, i) {
+      var tile = tiles[i]; if (!tile) return;
+      var divs = qsa(tile, 'div[style*="font-size: 16px"]');
+      s(divs[0], k[0]);
+      var desc = qs(tile, 'div[style*="font-size: 14px"]');
+      s(desc, k[1]);
+    });
   }
 
-  // Solutions
+  // ── Solutions (workflow steps) ────────────────────────────────
   var solSec = document.getElementById('solutions_sec');
   if (solSec) {
-    var sl = solSec.querySelector('div[style*="font-size: 12px"][style*="font-weight: 600"]');
-    if (sl) sl.textContent = t['sol-label'];
-    var sh = solSec.querySelector('h2');
-    if (sh) sh.innerHTML = t['sol-h2'];
+    s(qs(solSec, 'div[style*="font-size: 12px"][style*="font-weight: 600"]'), 'sol-label');
+    h(qs(solSec, 'h2'), 'sol-h2');
+    var steps = qsa(solSec, '.workflow-step');
+    [['step1-title','step1-desc'],['step2-title','step2-desc'],
+     ['step3-title','step3-desc'],['step4-title','step4-desc']]
+    .forEach(function(k, i) {
+      var step = steps[i]; if (!step) return;
+      s(qs(step, 'div[style*="font-size: 15px"]'), k[0]);
+      s(qs(step, 'div[style*="font-size: 13px"]'), k[1]);
+    });
   }
 
-  // CTA block
-  var ctaSec = document.querySelector('section[style*="padding: 80px 0px 100px"]');
+  // ── Features section ─────────────────────────────────────────
+  // It's the section.sec after solutions_sec
+  var allSecs = qsa(document, 'section.sec');
+  var featSec = allSecs[2]; // third .sec is Features
+  if (featSec) {
+    s(qs(featSec, 'div[style*="font-size: 12px"][style*="font-weight: 600"]'), 'feat-label');
+    h(qs(featSec, 'h2'), 'feat-h2');
+    var ftiles = qsa(featSec, '.tile');
+    [['feat1-title','feat1-desc'],['feat2-title','feat2-desc'],['feat3-title','feat3-desc'],
+     ['feat4-title','feat4-desc'],['feat5-title','feat5-desc'],['feat6-title','feat6-desc']]
+    .forEach(function(k, i) {
+      var tile = ftiles[i]; if (!tile) return;
+      s(qs(tile, 'div[style*="font-size: 16px"]'), k[0]);
+      s(qs(tile, 'div[style*="font-size: 14px"]'), k[1]);
+    });
+  }
+
+  // ── Audience (dark section with dev/designer/team cards) ──────
+  var audSec = qs(document, 'section[style*="background: rgb(10, 10, 10); padding: 100px"]');
+  if (audSec) {
+    s(qs(audSec, 'div[style*="font-size: 12px"][style*="font-weight: 600"]'), 'aud-label');
+    var audH2 = qs(audSec, 'h2');
+    if (audH2) audH2.innerHTML = 'If you\'re a dev or designer —<br>this is for you';
+    var cards = qsa(audSec, '.grid-3-gap > div');
+    var audData = [
+      ['aud1-title', ['aud1-li1','aud1-li2','aud1-li3','aud1-li4']],
+      ['aud2-title', ['aud2-li1','aud2-li2','aud2-li3','aud2-li4']],
+      ['aud3-title', ['aud3-li1','aud3-li2','aud3-li3','aud3-li4']],
+    ];
+    cards.forEach(function(card, i) {
+      var ad = audData[i]; if (!ad) return;
+      s(qs(card, 'div[style*="font-size: 17px"]'), ad[0]);
+      var items = qsa(card, 'div[style*="display: flex"][style*="gap: 10px"]');
+      ad[1].forEach(function(k, j) {
+        var item = items[j]; if (!item) return;
+        // last child text node in item
+        var spans = qsa(item, 'span');
+        if (spans[1]) s(spans[1], k);
+        else item.lastChild.textContent = t[k] || '';
+      });
+    });
+  }
+
+  // ── Compare section ──────────────────────────────────────────
+  var cmpSec = qs(document, 'section.sec:last-of-type');
+  // Find by id-adjacent or by table presence
+  var allSecArr = Array.from(allSecs);
+  var cmpSecEl = allSecArr.find(function(s) { return s.querySelector('table'); });
+  if (cmpSecEl) {
+    s(qs(cmpSecEl, 'div[style*="font-size: 12px"][style*="font-weight: 600"]'), 'cmp-label');
+    h(qs(cmpSecEl, 'h2'), 'cmp-h2');
+    var ths = qsa(cmpSecEl, 'th');
+    if (ths[0]) ths[0].textContent = 'Product';
+    if (ths[1]) ths[1].textContent = 'Users';
+    if (ths[2]) ths[2].textContent = 'Price';
+    if (ths[3]) ths[3].textContent = 'AI';
+    if (ths[4]) ths[4].textContent = 'Telegram';
+    if (ths[5]) ths[5].textContent = 'Desktop';
+    // Translate price cells
+    var priceMap = [['cmp-price-toby','Toby'],['cmp-price-tabbud','Tabbud'],['cmp-price-self','Selftabs']];
+    qsa(cmpSecEl, 'tbody tr').forEach(function(row, i) {
+      var priceTd = row.querySelectorAll('td')[2];
+      var key = (priceMap[i] || [])[0];
+      if (priceTd && key && t[key]) h(priceTd, key);
+    });
+  }
+
+  // ── Plans section ─────────────────────────────────────────────
+  var plnSec = document.getElementById('plans_sec');
+  if (plnSec) {
+    s(qs(plnSec, 'div[style*="font-size: 12px"][style*="font-weight: 600"]'), 'pln-label');
+    h(qs(plnSec, 'h2'), 'pln-h2');
+
+    var planCards = qsa(plnSec, '.grid-3-gap > div');
+
+    // Free plan (index 0)
+    var free = planCards[0];
+    if (free) {
+      s(qs(free, 'div[style*="font-size: 13px"]'), 'pln-free-per');
+      var freeLis = qsa(free, 'div[style*="display: flex"][style*="flex-direction: column"] > div');
+      ['pln-free-li1','pln-free-li2','pln-free-li3','pln-free-li4'].forEach(function(k, i) {
+        if (freeLis[i]) {
+          // text is in the span after the checkmark span
+          var spans = qsa(freeLis[i], 'span');
+          if (spans[1]) s(spans[1], k);
+        }
+      });
+      s(qs(free, 'a'), 'pln-free-btn');
+      h(qs(free, '.acc-font'), 'pln-free-price');
+      s(qs(free, 'div[style*="font-size: 13px"]'), 'pln-free-sub');
+    }
+
+    // Pro plan (index 1)
+    var pro = planCards[1];
+    if (pro) {
+      var popularBadge = qs(pro, 'div[style*="position: absolute"]');
+      s(popularBadge, 'pln-popular');
+      s(qs(pro, 'div[style*="font-size: 13px"]'), 'pln-pro-per');
+      var proLis = qsa(pro, 'div[style*="display: flex"][style*="flex-direction: column"] > div');
+      ['pln-pro-li1','pln-pro-li2','pln-pro-li3','pln-pro-li4',
+       'pln-pro-li5','pln-pro-li6','pln-pro-li7','pln-pro-li8'].forEach(function(k, i) {
+        if (proLis[i]) {
+          var spans = qsa(proLis[i], 'span');
+          if (spans[1]) s(spans[1], k);
+        }
+      });
+      s(qs(pro, 'a'), 'pln-pro-btn');
+      h(qs(pro, '.acc-font'), 'pln-pro-price');
+      s(qs(pro, 'div[style*="font-size: 13px"]'), 'pln-pro-per');
+    }
+
+    // Team plan (index 2)
+    var team = planCards[2];
+    if (team) {
+      s(qs(team, 'div[style*="font-size: 13px"]'), 'pln-team-per');
+      var teamLis = qsa(team, 'div[style*="display: flex"][style*="flex-direction: column"] > div');
+      ['pln-team-li1','pln-team-li2','pln-team-li3','pln-team-li4','pln-team-li5'].forEach(function(k, i) {
+        if (teamLis[i]) {
+          var spans = qsa(teamLis[i], 'span');
+          if (spans[1]) s(spans[1], k);
+        }
+      });
+      s(qs(team, 'a'), 'pln-team-btn');
+      h(qs(team, '.acc-font'), 'pln-team-price');
+      s(qs(team, 'div[style*="font-size: 13px"]'), 'pln-team-per');
+    }
+  }
+
+  // ── CTA block ────────────────────────────────────────────────
+  var ctaSec = qs(document, 'section[style*="padding: 80px 0px 100px"]');
   if (ctaSec) {
-    var cb = ctaSec.querySelector('.acc-font');
-    if (cb) cb.textContent = t['cta-badge'];
-    var ch = ctaSec.querySelector('h2');
-    if (ch) ch.textContent = t['cta-h2'];
-    var cs = ctaSec.querySelector('p');
-    if (cs) cs.textContent = t['cta-sub'];
-    var ctaBtns = ctaSec.querySelectorAll('.cta-btns a');
-    if (ctaBtns[0]) ctaBtns[0].textContent = t['cta-btn1'];
-    if (ctaBtns[1]) ctaBtns[1].textContent = t['cta-btn2'];
+    s(qs(ctaSec, '.acc-font'), 'cta-badge');
+    s(qs(ctaSec, 'h2'), 'cta-h2');
+    s(qs(ctaSec, 'p'), 'cta-sub');
+    var ctaBtns = qsa(ctaSec, '.cta-btns a');
+    s(ctaBtns[0], 'cta-btn1'); s(ctaBtns[1], 'cta-btn2');
   }
 
   document.documentElement.lang = 'en';
