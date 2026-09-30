@@ -849,19 +849,96 @@
 
 <div id="legal-panel" role="dialog" aria-modal="true" aria-label="Правовая информация" class="">
   <div class="lp-head">
-    <span style="font-size:15px;font-weight:700;letter-spacing:-0.02em;font-family:inherit;">Правовая информация</span>
+    <span style="font-size:15px;font-weight:700;letter-spacing:-0.02em;font-family:inherit;">Помощь</span>
     <button class="lp-close" id="legal-close" aria-label="Закрыть">✕</button>
   </div>
   <div class="lp-tabs">
+    <button class="lp-tab lp-active" data-pane="lp-faq">FAQ</button>
     <button class="lp-tab" data-pane="lp-contacts">Контакты</button>
     <button class="lp-tab" data-pane="lp-req">Реквизиты</button>
     <button class="lp-tab" data-pane="lp-order">Заказ</button>
     <button class="lp-tab" data-pane="lp-pay">Оплата</button>
     <button class="lp-tab" data-pane="lp-service">Услуги</button>
     <button class="lp-tab" data-pane="lp-refund">Возврат</button>
-    <button class="lp-tab lp-active" data-pane="lp-privacy">Данные</button>
+    <button class="lp-tab" data-pane="lp-privacy">Данные</button>
   </div>
   <div class="lp-body">
+
+    <div id="lp-faq" class="lp-pane lp-active">
+      <style>
+        .faq-item { border-bottom: 1px solid #f0f0f0; }
+        .faq-item:last-child { border-bottom: none; }
+        .faq-q {
+          width: 100%; background: none; border: none; text-align: left;
+          padding: 13px 0; cursor: pointer; display: flex;
+          justify-content: space-between; align-items: center;
+          font-size: 13px; font-weight: 600; color: #0a0a0a;
+          font-family: inherit; gap: 10px;
+        }
+        .faq-q:hover { color: #6c5ce7; }
+        .faq-icon {
+          width: 18px; height: 18px; border-radius: 50%;
+          background: #f5f3ff; color: #6c5ce7;
+          display: flex; align-items: center; justify-content: center;
+          font-size: 14px; flex-shrink: 0; transition: transform 0.2s;
+          font-style: normal;
+        }
+        .faq-item.open .faq-icon { transform: rotate(45deg); }
+        .faq-a {
+          font-size: 12.5px; color: #555; line-height: 1.65;
+          max-height: 0; overflow: hidden;
+          transition: max-height 0.25s ease, padding 0.2s;
+          padding-bottom: 0;
+        }
+        .faq-item.open .faq-a { max-height: 300px; padding-bottom: 13px; }
+      </style>
+
+      <div class="lp-label" style="margin-bottom:4px;">Часто задаваемые вопросы</div>
+
+      <div class="faq-item">
+        <button class="faq-q">Selftabs удалит мои вкладки?<i class="faq-icon">+</i></button>
+        <div class="faq-a">Нет. Selftabs только сохраняет и группирует — ничего не закрывает без твоей команды. Ты сам решаешь когда «парковать» вкладки.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Как работает AI-сортировка?<i class="faq-icon">+</i></button>
+        <div class="faq-a">AI анализирует заголовки и URL открытых вкладок и автоматически распределяет их по категориям: Research, Work, Design, Finance и др. Весь анализ происходит на сервере, вкладки не читаются целиком.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Что будет с сессиями если я удалю расширение?<i class="faq-icon">+</i></button>
+        <div class="faq-a">Сессии хранятся в облаке на твоём аккаунте. После переустановки расширения и входа в аккаунт всё восстановится — ничего не потеряешь.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Работает ли Selftabs в других браузерах?<i class="faq-icon">+</i></button>
+        <div class="faq-a">Расширение доступно для Chrome и всех Chromium-браузеров (Edge, Brave, Arc). Firefox и Safari пока не поддерживаются, но в планах.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Мои данные в безопасности?<i class="faq-icon">+</i></button>
+        <div class="faq-a">Да. Мы храним только заголовки и URL вкладок — не содержимое страниц. Данные не передаются третьим лицам. Подробнее во вкладке «Данные».</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Чем Free отличается от Pro?<i class="faq-icon">+</i></button>
+        <div class="faq-a">Free: до 50 вкладок, 5 сессий, базовая сортировка. Pro: безлимит вкладок и сессий, AI-дайджест, вопросы по истории, Telegram-бот, Desktop-приложение и облачная синхронизация.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Можно ли отменить подписку?<i class="faq-icon">+</i></button>
+        <div class="faq-a">Да, в любой момент через настройки расширения. Доступ к Pro сохраняется до конца оплаченного периода. Возврат за неиспользованные дни — по запросу в течение 14 дней.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Как работает Telegram-бот?<i class="faq-icon">+</i></button>
+        <div class="faq-a">Бот присылает ежедневный дайджест твоих вкладок прямо в Telegram. Можно задавать вопросы по истории браузера и получать ответы не открывая компьютер.</div>
+      </div>
+
+      <script>
+        document.querySelectorAll('.faq-q').forEach(function(btn) {
+          btn.addEventListener('click', function() {
+            var item = btn.closest('.faq-item');
+            var wasOpen = item.classList.contains('open');
+            document.querySelectorAll('.faq-item.open').forEach(function(el) { el.classList.remove('open'); });
+            if (!wasOpen) item.classList.add('open');
+          });
+        });
+      </script>
+    </div>
 
     <div id="lp-contacts" class="lp-pane">
       <div class="lp-label">Контакты</div>
@@ -918,7 +995,7 @@
       </div>
     </div>
 
-    <div id="lp-privacy" class="lp-pane lp-active">
+    <div id="lp-privacy" class="lp-pane">
       <div class="lp-label">Политика персональных данных</div>
       <div class="lp-text">
         Selftabs (самозанятый Сидоров Максим Артемович, ИНН 366521696666) обрабатывает данные в соответствии с ФЗ №152-ФЗ.<br><br>
