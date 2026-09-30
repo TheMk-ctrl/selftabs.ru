@@ -962,5 +962,58 @@
     });
   });
 })();
+
+(function () {
+  const STORE_URL =
+    'https://chromewebstore.google.com/detail/blikamndbjhnkokglddblgafmnieonfo?utm_source=landing_cta';
+ 
+  let extensionReady = false;
+ 
+  /* ── Слушаем сигнал от content.js ── */
+  window.addEventListener('message', function (e) {
+    if (e.source !== window) return;
+    if (e.data && e.data.type === 'SELFTABS_READY') {
+      extensionReady = true;
+      updateCTAButtons();
+    }
+  });
+ 
+  /* ── Через 600 мс считаем что расширения нет ── */
+  setTimeout(function () {
+    if (!extensionReady) {
+      // Ничего не меняем — кнопки по умолчанию ведут в стор
+    }
+  }, 600);
+ 
+  /* ── Меняем текст всех primary CTA кнопок ── */
+  function updateCTAButtons() {
+    // Все ссылки на Chrome Web Store — заменяем поведение
+    var links = document.querySelectorAll('a[href*="chromewebstore.google.com"]');
+    links.forEach(function (link) {
+      // Определяем какой текст подставить по текущему тексту
+      var current = link.textContent.trim();
+      var isInstall =
+        current.includes('Установить') ||
+        current.includes('Начать') ||
+        current.includes('Попробовать') ||
+        current.includes('Install') ||
+        current.includes('Try');
+ 
+      if (isInstall) {
+        link.textContent = '✦ Открыть Selftabs';
+      }
+ 
+      // Переопределяем клик
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (extensionReady) {
+          window.postMessage({ type: 'OPEN_SELFTABS' }, '*');
+        } else {
+          window.open(STORE_URL, '_blank');
+        }
+      });
+    });
+  }
+})();
 </script>
 </body></html>
