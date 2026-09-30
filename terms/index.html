@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пользовательское соглашение — SelfTabs</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0A0A0A;
+            color: #E0E0E0;
+            line-height: 1.7;
+            padding: 48px 24px 80px;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 48px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #C5B5F9;
+            flex-shrink: 0;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+        }
+
+        .date {
+            font-size: 13px;
+            color: #5A5A6A;
+            margin-bottom: 48px;
+        }
+
+        h2 {
+            font-size: 17px;
+            font-weight: 600;
+            color: #fff;
+            margin: 40px 0 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #1E1E2A;
+        }
+
+        p {
+            font-size: 14px;
+            color: #A0A0B0;
+            margin-bottom: 12px;
+        }
+
+        ul {
+            padding-left: 20px;
+            margin-bottom: 12px;
+        }
+
+        ul li {
+            font-size: 14px;
+            color: #A0A0B0;
+            margin-bottom: 6px;
+        }
+
+        strong {
+            color: #E0E0E0;
+            font-weight: 600;
+        }
+
+        .highlight {
+            background: rgba(197,181,249,0.07);
+            border: 1px solid rgba(197,181,249,0.15);
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin: 20px 0;
+            font-size: 14px;
+            color: #A0A0B0;
+        }
+
+        .highlight strong {
+            color: #C5B5F9;
+        }
+
+        .pricing-table {
+            border: 1px solid #1E1E2A;
+            border-radius: 14px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .pricing-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 2fr;
+            gap: 0;
+            border-bottom: 1px solid #1E1E2A;
+        }
+
+        .pricing-row:last-child { border-bottom: none; }
+
+        .pricing-row.header {
+            background: #111118;
+        }
+
+        .pricing-cell {
+            padding: 12px 16px;
+            font-size: 13px;
+            color: #A0A0B0;
+            border-right: 1px solid #1E1E2A;
+        }
+
+        .pricing-cell:last-child { border-right: none; }
+
+        .pricing-row.header .pricing-cell {
+            color: #6A6A7A;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            font-weight: 600;
+        }
+
+        .plan-name {
+            font-weight: 600;
+            color: #E0E0E0;
+        }
+
+        .plan-price {
+            color: #C5B5F9;
+            font-weight: 600;
+        }
+
+        .contact-card {
+            background: #111118;
+            border: 1px solid #1E1E2A;
+            border-radius: 14px;
+            padding: 20px 24px;
+            margin-top: 16px;
+        }
+
+        .contact-card p {
+            margin-bottom: 6px;
+        }
+
+        a {
+            color: #C5B5F9;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .accept-block {
+            background: rgba(197,181,249,0.05);
+            border: 1px solid rgba(197,181,249,0.2);
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin-top: 40px;
+            font-size: 13px;
+            color: #8A8A9A;
+            line-height: 1.6;
+        }
+
+        footer {
+            margin-top: 64px;
+            padding-top: 24px;
+            border-top: 1px solid #1E1E2A;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            font-size: 13px;
+            color: #5A5A6A;
+        }
+
+        footer a {
+            color: #5A5A6A;
+        }
+
+        footer a:hover {
+            color: #C5B5F9;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <a href="https://selftabs.ru" class="logo">
+        <div class="logo-dot"></div>
+        SelfTabs
+    </a>
+
+    <h1>Пользовательское соглашение</h1>
+    <div class="date">Дата последнего обновления: 1 октября 2026 г.</div>
+
+    <h2>1. Общие положения</h2>
+    <p>1.1. Настоящее Пользовательское соглашение (далее — <strong>«Соглашение»</strong>) регулирует порядок использования браузерного расширения и онлайн-сервиса <strong>SelfTabs</strong> (далее — <strong>«Сервис»</strong>), доступного по адресу <a href="https://selftabs.ru">selftabs.ru</a>, предоставляемого Администрацией.</p>
+    <p>1.2. Используя Сервис, включая установку расширения, регистрацию, оплату услуг или получение доступа к материалам, Пользователь подтверждает, что полностью ознакомился с условиями настоящего Соглашения и принимает их в полном объёме.</p>
+    <p>1.3. В случае несогласия с условиями Соглашения Пользователь обязан прекратить использование Сервиса.</p>
+
+    <h2>2. Описание Сервиса и тарифы</h2>
+    <p>2.1. SelfTabs — браузерное расширение для сохранения, организации и восстановления сессий вкладок браузера с поддержкой AI-функций и облачной синхронизации.</p>
+    <p>2.2. Сервис предоставляет цифровые товары и услуги нематериального характера. Доступны следующие тарифные планы:</p>
+
+    <div class="pricing-table">
+        <div class="pricing-row header">
+            <div class="pricing-cell">Тариф</div>
+            <div class="pricing-cell">Цена</div>
+            <div class="pricing-cell">Что включено</div>
+        </div>
+        <div class="pricing-row">
+            <div class="pricing-cell"><span class="plan-name">Пробный период</span></div>
+            <div class="pricing-cell"><span class="plan-price">Бесплатно</span><br><span style="font-size:11px;color:#5A5A6A;">3 дня</span></div>
+            <div class="pricing-cell">Все функции Pro на 3 дня без оплаты</div>
+        </div>
+        <div class="pricing-row">
+            <div class="pricing-cell"><span class="plan-name">Pro Pass</span></div>
+            <div class="pricing-cell"><span class="plan-price">270 ₽</span><br><span style="font-size:11px;color:#5A5A6A;">в месяц</span></div>
+            <div class="pricing-cell">Безлимитные вкладки и сессии, AI-дайджест и сводки, вопросы по вкладкам (Ask AI), Telegram-уведомления, Desktop-приложение, облачная синхронизация, авто-бэкап (JSON/Markdown), кастомный API-ключ ИИ, расширенная кастомизация</div>
+        </div>
+        <div class="pricing-row">
+            <div class="pricing-cell"><span class="plan-name">Team Workspace</span></div>
+            <div class="pricing-cell"><span class="plan-price">900 ₽</span><br><span style="font-size:11px;color:#5A5A6A;">в месяц</span></div>
+            <div class="pricing-cell">Всё из Pro + Workspace до 10 участников, общие командные сессии, шеринг вкладок, лидерборды активности, приоритетная поддержка, приоритетный Cloud Sync</div>
+        </div>
+    </div>
+
+    <p>2.3. Пользователь осознаёт и соглашается, что ценность цифровых товаров и услуг Сервиса заключается <strong>в систематизации, анализе, форме подачи, сопровождении, поддержке и обновлениях</strong>.</p>
+    <p>2.4. Актуальные цены и состав тарифов указаны в интерфейсе Сервиса и на сайте <a href="https://selftabs.ru">selftabs.ru</a>. Администрация вправе изменять тарифы с уведомлением Пользователей.</p>
+
+    <h2>3. Порядок получения доступа</h2>
+    <p>3.1. Для использования платных функций Пользователь:</p>
+    <ul>
+        <li>выбирает тарифный план в интерфейсе расширения или на сайте;</li>
+        <li>производит оплату одним из доступных способов (банковская карта, СБП, криптовалюта, международный эквайринг);</li>
+        <li>после успешной оплаты доступ к функциям активируется автоматически — статус обновляется в расширении.</li>
+    </ul>
+    <p>3.2. Для идентификации при оплате Пользователь использует email, указанный при регистрации в Сервисе, либо авторизуется через Google. Подписка привязывается к аккаунту Пользователя.</p>
+    <p>3.3. В случае технических затруднений с активацией Пользователь вправе обратиться в службу поддержки: <a href="mailto:m76655892@gmail.com">m76655892@gmail.com</a> или <a href="https://t.me/selftabs_bot" target="_blank">@selftabs_bot</a>.</p>
+
+    <h2>4. Отказ от гарантий и ответственности</h2>
+    <p>4.1. Сервис предоставляется на условиях <strong>«AS IS» («как есть»)</strong>.</p>
+    <p>4.2. Администрация не гарантирует:</p>
+    <ul>
+        <li>соответствие Сервиса ожиданиям Пользователя;</li>
+        <li>бесперебойную и безошибочную работу Сервиса;</li>
+        <li>достижение каких-либо результатов от использования Сервиса.</li>
+    </ul>
+    <p>4.3. Администрация не несёт ответственности за временные технические сбои, действия третьих лиц и последствия применения Пользователем функций Сервиса.</p>
+
+    <h2>5. Платежи и возвраты</h2>
+    <p>5.1. Оплата услуг производится на условиях, указанных в Сервисе до момента оплаты. Подписка продлевается вручную по истечении оплаченного периода.</p>
+    <p>5.2. В связи с нематериальным характером цифровых товаров <strong>возврат денежных средств после предоставления доступа не осуществляется</strong>, за исключением случаев, указанных ниже.</p>
+    <p>5.3. Возврат средств возможен только если:</p>
+    <ul>
+        <li>услуга не была оказана по технической вине Сервиса;</li>
+        <li>доступ к цифровому товару фактически не был предоставлен.</li>
+    </ul>
+    <p>5.4. Для рассмотрения вопроса о возврате Пользователь обязан обратиться в службу поддержки в течение <strong>24 часов</strong> с момента оплаты.</p>
+    <p>5.5. Решение о возврате принимается Администрацией индивидуально.</p>
+    <p>5.6. Пользователь подтверждает, что обязуется <strong>не инициировать возврат платежа (chargeback)</strong> через платёжные системы без предварительного обращения в службу поддержки Сервиса.</p>
+
+    <h2>6. Законность использования</h2>
+    <p>6.1. Сервис не предназначен для поощрения, организации или содействия противоправной деятельности.</p>
+    <p>6.2. Пользователь обязуется использовать Сервис исключительно в рамках применимого законодательства.</p>
+    <p>6.3. Ответственность за законность использования материалов и услуг Сервиса полностью возлагается на Пользователя.</p>
+
+    <h2>7. Интеллектуальная собственность</h2>
+    <p>7.1. Все материалы и функционал Сервиса охраняются законодательством об интеллектуальной собственности.</p>
+    <p>7.2. Пользователю запрещается копировать, распространять, перепродавать или передавать третьим лицам функционал и материалы Сервиса без разрешения правообладателя.</p>
+    <p>7.3. Нарушение прав интеллектуальной собственности может повлечь ограничение доступа к Сервису без компенсации.</p>
+
+    <h2>8. Ограничение доступа</h2>
+    <p>8.1. Администрация вправе приостановить или ограничить доступ Пользователя к Сервису в случае:</p>
+    <ul>
+        <li>нарушения условий настоящего Соглашения;</li>
+        <li>выявления злоупотреблений;</li>
+        <li>требований законодательства или платёжных провайдеров.</li>
+    </ul>
+    <p>8.2. Ограничение доступа не освобождает Пользователя от обязательств, возникших ранее.</p>
+
+    <h2>9. Конфиденциальность</h2>
+    <p>9.1. Обработка персональных данных Пользователя осуществляется в соответствии с <a href="/privacy">Политикой конфиденциальности</a>, являющейся неотъемлемой частью настоящего Соглашения.</p>
+
+    <h2>10. Изменение условий</h2>
+    <p>10.1. Администрация вправе вносить изменения в настоящее Соглашение.</p>
+    <p>10.2. Актуальная версия Соглашения публикуется на сайте <a href="https://selftabs.ru/terms">selftabs.ru/terms</a>.</p>
+    <p>10.3. Продолжение использования Сервиса означает согласие Пользователя с обновлёнными условиями.</p>
+
+    <h2>11. Контактная информация</h2>
+    <p>По всем вопросам Пользователь может обратиться в службу поддержки:</p>
+    <div class="contact-card">
+        <p><strong>Email:</strong> <a href="mailto:m76655892@gmail.com">m76655892@gmail.com</a></p>
+        <p><strong>Telegram:</strong> <a href="https://t.me/selftabs_bot" target="_blank">@selftabs_bot</a></p>
+        <p><strong>Сайт:</strong> <a href="https://selftabs.ru" target="_blank">selftabs.ru</a></p>
+    </div>
+
+    <div class="accept-block">
+        Используя Сервис (в том числе устанавливая расширение, регистрируясь и/или производя оплату), Пользователь подтверждает, что ознакомлен с настоящим Соглашением и <a href="/privacy">Политикой конфиденциальности</a> и принимает их условия в полном объёме.
+    </div>
+
+    <footer>
+        <span>© 2026 SelfTabs</span>
+        <a href="/privacy">Политика конфиденциальности</a>
+        <a href="/terms">Пользовательское соглашение</a>
+        <a href="mailto:m76655892@gmail.com">m76655892@gmail.com</a>
+    </footer>
+
+</div>
+</body>
+</html>
