@@ -964,12 +964,12 @@
 })();
 
 (function () {
-  const STORE_URL =
+  var STORE_URL =
     'https://chromewebstore.google.com/detail/blikamndbjhnkokglddblgafmnieonfo?utm_source=landing_cta';
  
-  let extensionReady = false;
+  var extensionReady = false;
  
-  /* ── Слушаем сигнал от content.js ── */
+  // ── Слушаем сигнал от content.js ────────────────────────────────────
   window.addEventListener('message', function (e) {
     if (e.source !== window) return;
     if (e.data && e.data.type === 'SELFTABS_READY') {
@@ -978,36 +978,50 @@
     }
   });
  
-  /* ── Через 600 мс считаем что расширения нет ── */
-  setTimeout(function () {
-    if (!extensionReady) {
-      // Ничего не меняем — кнопки по умолчанию ведут в стор
-    }
-  }, 600);
+  // ── Открыть расширение (с опциональным планом) ──────────────────────
+  function openExtension(plan) {
+    window.postMessage({ type: 'OPEN_SELFTABS', plan: plan || null }, '*');
+  }
  
-  /* ── Меняем текст всех primary CTA кнопок ── */
+  // ── Определить plan по тексту кнопки ────────────────────────────────
+  function detectPlan(link) {
+    var text = (link.textContent || '').trim().toLowerCase();
+    if (text.includes('pro') || text.includes('про')) return 'pro';
+    if (text.includes('team') || text.includes('команд')) return 'team';
+    return null; // обычная кнопка — просто открыть popup
+  }
+ 
+  // ── Обновить все CTA кнопки после обнаружения расширения ────────────
   function updateCTAButtons() {
-    // Все ссылки на Chrome Web Store — заменяем поведение
     var links = document.querySelectorAll('a[href*="chromewebstore.google.com"]');
-    links.forEach(function (link) {
-      // Определяем какой текст подставить по текущему тексту
-      var current = link.textContent.trim();
-      var isInstall =
-        current.includes('Установить') ||
-        current.includes('Начать') ||
-        current.includes('Попробовать') ||
-        current.includes('Install') ||
-        current.includes('Try');
  
-      if (isInstall) {
-        link.textContent = '✦ Открыть Selftabs';
+    links.forEach(function (link) {
+      var plan = detectPlan(link);
+ 
+      // Меняем текст
+      if (plan === 'pro') {
+        link.textContent = '✦ Открыть и перейти к Pro';
+      } else if (plan === 'team') {
+        link.textContent = '✦ Открыть и перейти к Team';
+      } else {
+        // "Установить расширение", "Начать бесплатно", "Попробовать →"
+        var current = link.textContent.trim();
+        if (
+          current.includes('Установить') ||
+          current.includes('Начать') ||
+          current.includes('Попробовать') ||
+          current.includes('Install') ||
+          current.includes('Try')
+        ) {
+          link.textContent = '✦ Открыть Selftabs';
+        }
       }
  
       // Переопределяем клик
       link.addEventListener('click', function (e) {
         e.preventDefault();
         if (extensionReady) {
-          window.postMessage({ type: 'OPEN_SELFTABS' }, '*');
+          openExtension(plan);
         } else {
           window.open(STORE_URL, '_blank');
         }
